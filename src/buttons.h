@@ -10,6 +10,10 @@ class Buttons
     byte right;
     byte start;
     byte back;
+    bool isPressed;
+    unsigned long long timeOfClick;
+    unsigned long long timeOfPress;
+    byte clickedButtonResponce(byte returnValue);
     public:
     Buttons(byte up, byte down, byte left, byte right, byte start, byte back);
     byte clickedButton();
