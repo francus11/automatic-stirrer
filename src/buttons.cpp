@@ -54,5 +54,4 @@ byte Buttons::clickedButtonResponce (byte returnValue)
         isPressed = 0;
         return 0;
     }
-
 }
