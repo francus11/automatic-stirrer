@@ -2,6 +2,7 @@
 Automix::Automix(Motor* motor, unsigned short* time, byte* speed, unsigned short arraySize)
 {
     iteration = 0;
+    runStatus = 255;
 }
 
 void Automix::run()
@@ -31,7 +32,19 @@ void Automix::start()
 }
 void Automix::pause()
 {
-    runStatus = 1;
+    if (runStatus != 1)
+    {
+        runStatus = 1;
+        timeOfPause = millis();
+    }
+}
+void Automix::resume()
+{
+    if (runStatus != 0)
+    {
+        runStatus = 0;
+        timeOfIteration += millis() - timeOfPause;
+    }
 }
 void Automix::stop()
 {

@@ -7,31 +7,37 @@
 #include <Wire.h>
 #include <LiquidCrystal.h>
 
+// initialise classes
 LiquidCrystal lcd(A1, A0, 15, 14, 16, 10);
 Buttons buttons(2, 5, 3, 4, 7, 6);
 Motor motorA(9, 8, 128);
+
+// menu test
 int menu_items = 4;
 String menuPrompts[] = {"Menu 1", "Menu 2", "Menu 3", "Menu 4"};
 
+// automix presets
+unsigned short timeTest[2] = {10, 25};
+byte speedTest[2] = {128, 155};
+
 void setup()
 {
-  pinMode(8, OUTPUT);
-  pinMode(9, OUTPUT);
-  pinMode(2, INPUT_PULLUP);
-  Serial.begin(9600); //Ustawienie prędkości transmisji
-  lcd.begin(16, 2); //Deklaracja typu
-  lcd.setCursor(0, 0); //Ustawienie kursora
-  lcd.print("Speed: ");
-  lcd.print(motorA.getSpeed());
+    pinMode(8, OUTPUT);
+    pinMode(9, OUTPUT);
+    pinMode(2, INPUT_PULLUP);
+    Serial.begin(9600);  // Ustawienie prędkości transmisji
+    lcd.begin(16, 2);    // Deklaracja typu
+    lcd.setCursor(0, 0); // Ustawienie kursora
+    lcd.print("Speed: ");
+    lcd.print(motorA.getSpeed());
 }
 
 void loop()
 {
-  //display test
-  
-  byte clickedButton = buttons.clickedButton();
-  switch (clickedButton)
-  {
+
+    byte clickedButton = buttons.clickedButton();
+    switch (clickedButton)
+    {
     /* case 1:
       Serial.println("Up");
       break;
@@ -39,34 +45,75 @@ void loop()
       Serial.println("Down");
       break; */
     case 3:
-      //Serial.println("Left");
-      motorA.changeSpeed(-5);
-      //motorA.applyChanges();
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Speed: ");
-      lcd.print(motorA.getSpeed());
-      break;
+        // Serial.println("Left");
+        motorA.changeSpeed(-5);
+        // motorA.applyChanges();
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Speed: ");
+        lcd.print(motorA.getSpeed());
+        break;
     case 4:
-      //Serial.println("Right");
-      motorA.changeSpeed(5);
-      //motorA.applyChanges();
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Speed: ");
-      lcd.print(motorA.getSpeed());
-      break;
+        // Serial.println("Right");
+        motorA.changeSpeed(5);
+        // motorA.applyChanges();
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Speed: ");
+        lcd.print(motorA.getSpeed());
+        break;
     /* case 5:
-      Serial.println("Start");
-      break;
+        Serial.println("Start");
+        break;
     case 6:
-      Serial.println("Back");
-      break; */
+        Serial.println("Back");
+        break; */
     default:
-      //Serial.println("Nothing");
-      break;  
-  }
-  
-motorA.run();
-//Serial.println(motorA.test());
+        // Serial.println("Nothing");
+        break;
+    }
+
+    motorA.run();
+    //   Serial.println(motorA.test()); 
+    
+
+    switch (clickedButton)
+    {
+    /* case 1:
+      Serial.println("Up");
+      break;
+    case 2:
+      Serial.println("Down");
+      break; */
+    case 3:
+        // Serial.println("Left");
+        motorA.changeSpeed(-5);
+        // motorA.applyChanges();
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Speed: ");
+        lcd.print(motorA.getSpeed());
+        break;
+    case 4:
+        // Serial.println("Right");
+        motorA.changeSpeed(5);
+        // motorA.applyChanges();
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Speed: ");
+        lcd.print(motorA.getSpeed());
+        break;
+    /* case 5:
+        Serial.println("Start");
+        break;
+    case 6:
+        Serial.println("Back");
+        break; */
+    default:
+        // Serial.println("Nothing");
+        break;
+    }
+
+    motorA.run();
+    //   Serial.println(motorA.test());
 }
