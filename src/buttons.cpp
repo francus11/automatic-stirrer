@@ -21,13 +21,6 @@ byte Buttons::clickedButton()
     if (!digitalRead(back)) return clickedButtonResponce(6);
     isPressed = 0;
     return 0;
-    /* if (!digitalRead(up)) return 1;
-    if (!digitalRead(down)) return 2;
-    if (!digitalRead(left)) return 3;
-    if (!digitalRead(right)) return 4;
-    if (!digitalRead(start)) return 5;
-    if (!digitalRead(back)) return 6;
-    return 0; */
 }
 //checks if button is clicked or long pressed
 byte Buttons::clickedButtonResponce (byte returnValue)
