@@ -1,9 +1,8 @@
-
-
 #include <Arduino.h>
 #include "buttons.h"
 #include "menu.h"
-#include "motor.h"
+
+#include "automix.h"
 #include <Wire.h>
 #include <LiquidCrystal.h>
 
@@ -14,12 +13,13 @@ Motor motorA(9, 8, 128);
 
 // menu test
 int menu_items = 4;
-String menuPrompts[] = {"Menu 1", "Menu 2", "Menu 3", "Menu 4"};
+String menuPrompts[] = {"Manual", "Automatic", "Menu 3", "Menu 4"};
+Menu menu0(menuPrompts, 4, A1, A0, 15, 14, 16, 10);
 
 // automix presets
-unsigned short timeTest[2] = {10, 25};
-byte speedTest[2] = {128, 155};
-
+unsigned short timeTest[2] = {10, 10};
+byte speedTest[2] = {128, 255};
+Automix automix(9, 8, 128, timeTest, speedTest, 2);
 void setup()
 {
     pinMode(8, OUTPUT);
@@ -30,20 +30,18 @@ void setup()
     lcd.setCursor(0, 0); // Ustawienie kursora
     lcd.print("Speed: ");
     lcd.print(motorA.getSpeed());
+    
+    automix.start();
+
 }
 
 void loop()
 {
-
     byte clickedButton = buttons.clickedButton();
+    menu0.displayMenu(clickedButton);
+    //do wsadzenia w menu manual
     switch (clickedButton)
     {
-    /* case 1:
-      Serial.println("Up");
-      break;
-    case 2:
-      Serial.println("Down");
-      break; */
     case 3:
         // Serial.println("Left");
         motorA.changeSpeed(-5);
@@ -56,64 +54,22 @@ void loop()
     case 4:
         // Serial.println("Right");
         motorA.changeSpeed(5);
-        // motorA.applyChanges();
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("Speed: ");
         lcd.print(motorA.getSpeed());
         break;
-    /* case 5:
-        Serial.println("Start");
-        break;
-    case 6:
-        Serial.println("Back");
-        break; */
     default:
         // Serial.println("Nothing");
         break;
     }
 
     motorA.run();
-    //   Serial.println(motorA.test()); 
-    
-
-    switch (clickedButton)
+    //do wsadzenia w menu automatic
+    while(1)
     {
-    /* case 1:
-      Serial.println("Up");
-      break;
-    case 2:
-      Serial.println("Down");
-      break; */
-    case 3:
-        // Serial.println("Left");
-        motorA.changeSpeed(-5);
-        // motorA.applyChanges();
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print("Speed: ");
-        lcd.print(motorA.getSpeed());
-        break;
-    case 4:
-        // Serial.println("Right");
-        motorA.changeSpeed(5);
-        // motorA.applyChanges();
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print("Speed: ");
-        lcd.print(motorA.getSpeed());
-        break;
-    /* case 5:
-        Serial.println("Start");
-        break;
-    case 6:
-        Serial.println("Back");
-        break; */
-    default:
-        // Serial.println("Nothing");
-        break;
+        automix.runAutomix();
+        if (automix.showStatus() == 2) break;
     }
-
-    motorA.run();
-    //   Serial.println(motorA.test());
+    menu0.displayMenu(255);
 }
