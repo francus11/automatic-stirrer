@@ -56,17 +56,28 @@ byte Motor::getSpeed()
 }
 void Motor::run()
 {
-    if (millis() >= timeOff)
+    if (enableValue != 0)
     {
-        digitalWrite(enablePin, 1);
-        timeOn = millis() + pwmOnTime;
-        timeOff = millis() + pwmFreq;
+        #ifndef USEDELAY
+        if (millis() >= timeOff)
+        {
+            digitalWrite(enablePin, 1);
+            timeOn = millis() + pwmOnTime;
+            timeOff = millis() + pwmFreq;
+        }
+        if (millis() >= timeOn)
+        {
+            digitalWrite(enablePin, 0);
+        }
+        //delay(pwmOffTime);
+        #endif
+        #ifdef USEDELAY
+            digitalWrite(enablePin, 1);
+            delay(pwmOnTime);
+            digitalWrite(enablePin, 0);
+            delay(pwmOffTime);
+        #endif
     }
-    if (millis() >= timeOn)
-    {
-        digitalWrite(enablePin, 0);
-    }
-    delay(pwmOffTime);
 }
 float Motor::test()
 {

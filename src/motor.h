@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #define SOFTWARE_PWM
+#define USEDELAY
 #ifndef SOFTWARE_PWM
 class Motor
 {
