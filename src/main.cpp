@@ -5,9 +5,10 @@
 #include "menu.h"
 #include "motor.h"
 #include <Wire.h>
-#include <LiquidCrystal.h>
 
-LiquidCrystal lcd(A1, A0, 15, 14, 16, 10);
+#include "screen.h"
+
+Screen lcd(A1, A0, 15, 14, 16, 10);
 Buttons buttons(2, 5, 3, 4, 7, 6);
 Motor motorA(9, 8, 128);
 int menu_items = 4;
