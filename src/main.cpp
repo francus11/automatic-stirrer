@@ -38,7 +38,6 @@ void setup()
 void loop()
 {
     byte clickedButton = buttons.clickedButton();
-    menu0.displayMenu(clickedButton);
     //do wsadzenia w menu manual
     switch (clickedButton)
     {

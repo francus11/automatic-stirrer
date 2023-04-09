@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 
-class Screen : LiquidCrystal
+class Screen : public LiquidCrystal
 {
     public:
 
