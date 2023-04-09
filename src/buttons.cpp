@@ -40,14 +40,8 @@ byte Buttons::clickedButtonResponce (byte returnValue)
     }
     else if (isPressed)
     {
-        if (millis() >= timeOfClick)
-        {
-            if (millis() >= timeOfPress)
-            {
-                timeOfPress = millis() + 50;
-                return returnValue;
-            }
-        }
+        timeOfPress = millis() + 50;
+        return returnValue;
     }
     else
     {
