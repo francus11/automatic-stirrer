@@ -30,11 +30,21 @@ void Menu::displayText()
     setCursor(0, 0);
     print(menuText[chosenOption / 2 * 2]);
     if(chosenOption % 2 == 0) print("<");
+    
     if(chosenOption + 1 != menuTextElements)
     {
         setCursor(0, 1);
         print(menuText[(chosenOption / 2 * 2) + 1]);
         if(chosenOption % 2 == 1) print("<");
+    }
+    else
+    {
+        if(menuTextElements % 2 == 0)
+        {
+            setCursor(0, 1);
+            print(menuText[(chosenOption / 2 * 2) + 1]);
+            if(chosenOption % 2 == 1) print("<");
+        }
     }
 }
 void Menu::displayMenu(byte signal)
